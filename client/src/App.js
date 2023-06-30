@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //components
 import UserRegistration from "./Components/UserRegistration";
+import ViewUsers from "./Components/ViewUsers";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <Router>
         <Heading>Simple CRUD Application - Assesment 4 - CS3122 - 2018COM03</Heading>
         <Routes>
-          <Route exact path="/" element={<UserRegistration />} />
+          <Route exact path="/" element={<ViewUsers />} />
+          <Route exact path="/register" element={<UserRegistration />} />
         </Routes>
       </Router>
     </Container>

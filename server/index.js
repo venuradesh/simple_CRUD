@@ -44,3 +44,22 @@ db.connect((err) => {
 });
 
 //routes
+app.post("/register", (req, res) => {
+  const query = `INSERT INTO user(regno, username, dateofbirth, gender, date_created) VALUES ('${req.body.regno}', '${req.body.username}', '${req.body.dob}','${req.body.gender === "male" ? "M" : "F"}', ${Date.now()})`;
+  db.query(query, (err) => {
+    if (err) {
+      res.status(409).send({ message: "error occured while saving into database" });
+      console.log(err);
+    } else res.status(201).send({ message: "successfully created" });
+  });
+});
+
+app.get("/getUsers", (req, res) => {
+  const query = "SELECT * FROM user;";
+  db.query(query, (err, result) => {
+    if (err) {
+      res.status(409).send({ message: "Error occured while retrieving the data from the database" });
+      console.log(err);
+    } else res.status(200).send({ message: result });
+  });
+});
