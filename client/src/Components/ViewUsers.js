@@ -12,8 +12,6 @@ function ViewUsers() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    setIsLoaded(false);
-    setNoData(false);
     axios
       .get(`${API_URL}/getUsers`)
       .then((res) => {
@@ -27,7 +25,22 @@ function ViewUsers() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [isloaded]);
+
+  const onDeleteClick = (userid) => {
+    axios
+      .delete(`${API_URL}/deleteUser`, {
+        headers: {
+          regno: userid,
+        },
+      })
+      .then((res) => {
+        setIsLoaded(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Container>
@@ -53,7 +66,9 @@ function ViewUsers() {
                   </div>
                 </div>
                 <div className="item delete options">
-                  <div className="item-option delete">Delete</div>
+                  <div className="item-option delete" onClick={() => onDeleteClick(user.regno)}>
+                    Delete
+                  </div>
                 </div>
               </div>
             ))}

@@ -91,3 +91,16 @@ app.post("/edituser", (req, res) => {
     }
   });
 });
+
+//delete the user
+app.delete("/deleteUser", (req, res) => {
+  const query = `DELETE FROM user WHERE regno="${req.headers.regno}"`;
+  db.query(query, (err, result) => {
+    if (err) {
+      res.status(400).send({ message: "Error whiel deleting" });
+      console.log(err);
+    } else {
+      res.status(200).send({ message: "ok" });
+    }
+  });
+});
