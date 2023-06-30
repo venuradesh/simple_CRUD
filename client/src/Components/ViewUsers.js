@@ -48,7 +48,9 @@ function ViewUsers() {
                 <div className="item">{user.username}</div>
                 <div className="item">{user.gender === "M" ? "Male" : "Female"}</div>
                 <div className="item edit options">
-                  <div className="item-option edit">Edit</div>
+                  <div className="item-option edit" onClick={() => navigate(`/edit/${user.regno.replaceAll("/", "-")}`)}>
+                    Edit
+                  </div>
                 </div>
                 <div className="item delete options">
                   <div className="item-option delete">Delete</div>
