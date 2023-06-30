@@ -54,6 +54,7 @@ app.post("/register", (req, res) => {
   });
 });
 
+//fetching all the datas
 app.get("/getUsers", (req, res) => {
   const query = "SELECT * FROM user;";
   db.query(query, (err, result) => {
@@ -61,5 +62,32 @@ app.get("/getUsers", (req, res) => {
       res.status(409).send({ message: "Error occured while retrieving the data from the database" });
       console.log(err);
     } else res.status(200).send({ message: result });
+  });
+});
+
+//fetching the particular user
+app.get("/user", (req, res) => {
+  const regNo = req.headers.regno;
+  const query = `SELECT regno, username, date_format(dateofbirth, '%Y-%m-%d') as dateofbirth, gender FROM user WHERE regno="${regNo}"`;
+  db.query(query, (err, response) => {
+    if (err) {
+      res.status(409).send({ message: `Error occured While Fetching data for ${regNo}` });
+      console.log(err);
+    } else {
+      res.status(200).send({ message: response });
+    }
+  });
+});
+
+//editing the user
+app.post("/edituser", (req, res) => {
+  const query = `UPDATE user SET username="${req.body.username}", dateofbirth="${req.body.dob}", gender="${req.body.gender === "male" ? "M" : "F"}" WHERE regno="${req.body.regno}"`;
+  db.query(query, (err, result) => {
+    if (err) {
+      res.status(409).send({ message: `Error occured while updating` });
+      console.log(err);
+    } else {
+      res.status(201).send({ message: "ok" });
+    }
   });
 });

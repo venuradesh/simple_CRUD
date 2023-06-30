@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //components
 import UserRegistration from "./Components/UserRegistration";
 import ViewUsers from "./Components/ViewUsers";
+import EditUsers from "./Components/EditUsers";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<ViewUsers />} />
           <Route exact path="/register" element={<UserRegistration />} />
+          <Route exact path="/edit/:regNo" element={<EditUsers />} />
         </Routes>
       </Router>
     </Container>
